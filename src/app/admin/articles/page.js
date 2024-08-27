@@ -31,13 +31,14 @@ export default function AdminArticlesPage() {
     try {
       const response = await fetch(`/api/articles${sync ? '?sync=true' : ''}`);
       if (!response.ok) {
-        throw new Error('Failed to fetch articles');
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Failed to fetch articles');
       }
       const data = await response.json();
       setArticles(data);
     } catch (error) {
-      console.error('Error fetching articles:', error);
-      setError('Failed to fetch articles. Please try again.');
+      console.error('Detailed error:', error);
+      setError(`Failed to fetch articles. Error: ${error.message}`);
     } finally {
       setIsLoading(false);
     }

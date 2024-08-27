@@ -1,9 +1,10 @@
-# GitBase
+# GitBase Luolink Demo About
 
 [GitBase](https://gitbase.app/) is an open-source dynamic website solution without a traditional database, built with Next.js, Tailwind CSS, and Shadcn/UI. It leverages GitHub as a content management system, providing a seamless way to create and manage website content.
 
 ![GitBase](https://toimg.xyz/file/5aa892c8e8385232fcdf3.png)
 
+[//]: # (我就是想提交一个同步修改的代码)
 
 ## Deploy on Vercel
 
@@ -72,7 +73,7 @@ Visit `http://localhost:3000` to see your GitBase instance running locally.
    - `ACCESS_PASSWORD`
 4. Deploy the project.
 
-For a detailed deployment guide, please refer to our [Installation and Deployment Guide](https://gitbase.app/posts/gitbase-install-guide).
+For a detailed deployment guide, please refer to our [Installation and Deployment Guide](link-to-guide).
 
 ## Usage
 
@@ -83,11 +84,11 @@ For a detailed deployment guide, please refer to our [Installation and Deploymen
 
 ## Contributing
 
-We welcome contributions to GitBase! Please read our [Contributing Guide](https://gitbase.app/posts/how-to-contributing-to-gitbase) for details on our code of conduct and the process for submitting pull requests.
+We welcome contributions to GitBase! Please read our [Contributing Guide](link-to-contributing-guide) for details on our code of conduct and the process for submitting pull requests.
 
 ## License
 
-GitBase is open-source software licensed under the [MIT license](https://github.com/qiayue/gitbase/?tab=MIT-1-ov-file).
+GitBase is open-source software licensed under the [MIT license](link-to-license).
 
 ## Support
 

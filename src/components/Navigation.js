@@ -18,6 +18,7 @@ export function Navigation() {
   const router = useRouter()
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
+  const [isGenerating, setIsGenerating] = useState(false)
 
   useEffect(() => {
     let isMounted = true;
@@ -49,6 +50,24 @@ export function Navigation() {
       router.push('/');
     } catch (error) {
       console.error('Failed to logout:', error);
+    }
+  };
+
+  const handleGenerate = async () => {
+    setIsGenerating(true);
+    try {
+      const response = await fetch('/api/generate-article', { method: 'POST' });
+      const data = await response.json();
+      if (response.ok) {
+        alert('文章已成功生成！');
+      } else {
+        throw new Error(data.message);
+      }
+    } catch (error) {
+      console.error('生成文章时出错:', error);
+      alert('生成文章时出现错误，请稍后再试。');
+    } finally {
+      setIsGenerating(false);
     }
   };
 
@@ -98,6 +117,13 @@ export function Navigation() {
               </Link>
             )
           )}
+          <Button
+            onClick={handleGenerate}
+            disabled={isGenerating}
+            className="ml-auto"
+          >
+            {isGenerating ? '生成中...' : 'AI生成文章'}
+          </Button>
         </div>
       </div>
     </header>

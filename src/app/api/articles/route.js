@@ -12,49 +12,31 @@ const articlesJsonPath = 'data/json/articles.json';
 const mdFolderPath = 'data/md';
 
 export async function GET(request) {
-  const { searchParams } = new URL(request.url);
-  const sync = searchParams.get('sync');
-  const path = searchParams.get('path');
-
   try {
-    if (path) {
-      // Fetch single article
-      try {
-        const { data } = await octokit.repos.getContent({
-          owner,
-          repo,
-          path: decodeURIComponent(path),
-        });
-
-        const content = Buffer.from(data.content, 'base64').toString('utf8');
-        const { data: frontMatter, content: articleContent } = matter(content);
-
-        return NextResponse.json({
-          ...frontMatter,
-          content: articleContent,
-          path: data.path,
-        });
-      } catch (error) {
-        console.error('Error fetching article:', error);
-        return NextResponse.json({ error: 'Failed to fetch article' }, { status: 500 });
-      }
-    } else if (sync === 'true') {
-      await syncArticles();
-    }
+    console.log('Fetching articles...');
+    console.log('GitHub Token:', process.env.GITHUB_TOKEN ? 'Set' : 'Not set');
+    console.log('Owner:', process.env.GITHUB_OWNER);
+    console.log('Repo:', process.env.GITHUB_REPO);
+    console.log('Articles JSON Path:', articlesJsonPath);
 
     const { data } = await octokit.repos.getContent({
-      owner,
-      repo,
+      owner: process.env.GITHUB_OWNER,
+      repo: process.env.GITHUB_REPO,
       path: articlesJsonPath,
     });
 
+    console.log('GitHub API response:', data);
+
     const content = Buffer.from(data.content, 'base64').toString('utf8');
+    console.log('Decoded content:', content);
+
     const articles = JSON.parse(content);
+    console.log('Parsed articles:', articles);
 
     return NextResponse.json(articles);
   } catch (error) {
-    console.error('Error fetching articles:', error);
-    return NextResponse.json({ error: 'Failed to fetch articles' }, { status: 500 });
+    console.error('Detailed error:', error);
+    return NextResponse.json({ error: 'Failed to fetch articles', details: error.message }, { status: 500 });
   }
 }
 
